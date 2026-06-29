@@ -215,13 +215,13 @@ body {
     position: absolute;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(255, 77, 109, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 77, 109, 0.12) 0%, rgba(255, 77, 109, 0.04) 40%, transparent 70%);
     top: -50px;
     left: 50%;
     transform: translateX(-50%);
-    filter: blur(40px);
     z-index: -1;
     animation: pulseGlow 6s ease-in-out infinite alternate;
+    will-change: transform, opacity;
 }
 
 @keyframes pulseGlow {
@@ -302,6 +302,7 @@ body {
     box-shadow: 0 20px 40px rgba(0,0,0,0.6);
     cursor: pointer;
     transition: var(--transition-smooth);
+    will-change: transform;
 }
 
 .envelope:hover {
@@ -319,6 +320,7 @@ body {
     transform-origin: top;
     transition: var(--transition-smooth);
     z-index: 4;
+    will-change: transform;
 }
 
 .pocket {
@@ -348,6 +350,7 @@ body {
     transition: var(--transition-smooth);
     z-index: 2;
     overflow: hidden;
+    will-change: transform;
 }
 
 .letter-content {
@@ -467,6 +470,7 @@ body {
     pointer-events: none;
     transform: scale(0.8) translateZ(-100px);
     box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    will-change: transform, opacity;
 }
 
 .promise-card.active {
@@ -864,6 +868,8 @@ body {
     .promise-card {
         padding: 30px 20px;
         height: 280px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
 
     .promise-card.prev {
@@ -877,6 +883,8 @@ body {
     /* Decision Box */
     .glass-decision-box {
         padding: 35px 20px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
     }
     
     .glass-decision-box h2 {

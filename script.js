@@ -22,7 +22,46 @@ const totalCards = promiseCards.length;
    ------------------------------------------------------------------ */
 const ctx = particlesCanvas.getContext('2d');
 let particlesArray = [];
-const particleCount = window.innerWidth < 768 ? 20 : 40;
+const particleCount = window.innerWidth < 768 ? 12 : 25;
+
+// Pre-render hearts to offscreen canvases for high performance
+const heartCache = [];
+const cacheColors = [
+    'rgba(255, 77, 109, ',   // primary rose
+    'rgba(255, 117, 143, ',  // light pink
+    'rgba(255, 180, 194, ',  // blush pink
+    'rgba(195, 148, 236, ',  // lavender
+    'rgba(255, 204, 213, '   // powder pink
+];
+
+function createHeartCache() {
+    // We cache 15 different hearts (5 colors x 3 sizes)
+    const sizes = [8, 12, 16];
+    cacheColors.forEach((colorBase) => {
+        sizes.forEach((size) => {
+            const cacheCanvas = document.createElement('canvas');
+            cacheCanvas.width = size * 2.5;
+            cacheCanvas.height = size * 2.5;
+            const cacheCtx = cacheCanvas.getContext('2d');
+            
+            cacheCtx.translate(cacheCanvas.width / 2, cacheCanvas.height / 2);
+            cacheCtx.beginPath();
+            const d = size;
+            cacheCtx.moveTo(0, -d / 2);
+            cacheCtx.bezierCurveTo(d / 2, -d, d, -d / 3, 0, d);
+            cacheCtx.bezierCurveTo(-d, -d / 3, -d / 2, -d, 0, -d / 2);
+            
+            cacheCtx.fillStyle = colorBase + '1.0)';
+            cacheCtx.fill();
+            
+            heartCache.push({
+                canvas: cacheCanvas,
+                size: size
+            });
+        });
+    });
+}
+createHeartCache();
 
 // Set canvas dimensions
 function resizeCanvas() {
@@ -41,41 +80,26 @@ class HeartParticle {
     reset(initial = false) {
         this.x = Math.random() * particlesCanvas.width;
         this.y = initial ? Math.random() * particlesCanvas.height : particlesCanvas.height + 20;
-        this.size = Math.random() * 12 + 6; // size of the heart
         this.speedY = -(Math.random() * 0.8 + 0.4); // float speed up
         this.speedX = Math.sin(Math.random() * 2) * 0.4; // slight side sway
         this.opacity = Math.random() * 0.5 + 0.2;
-        this.color = this.getRandomColor();
         this.rotation = Math.random() * Math.PI;
         this.rotationSpeed = (Math.random() - 0.5) * 0.01;
-    }
-
-    getRandomColor() {
-        // Varieties of soft pinks, deep roses, and lavenders
-        const colors = [
-            'rgba(255, 77, 109, ',   // primary rose
-            'rgba(255, 117, 143, ',  // light pink
-            'rgba(255, 180, 194, ',  // blush pink
-            'rgba(195, 148, 236, ',  // lavender
-            'rgba(255, 204, 213, '   // powder pink
-        ];
-        return colors[Math.floor(Math.random() * colors.length)];
+        this.cacheIndex = Math.floor(Math.random() * heartCache.length);
     }
 
     draw() {
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.rotation);
-        ctx.beginPath();
+        ctx.globalAlpha = this.opacity;
         
-        // Draw heart shape
-        const d = this.size;
-        ctx.moveTo(0, -d / 2);
-        ctx.bezierCurveTo(d / 2, -d, d, -d / 3, 0, d);
-        ctx.bezierCurveTo(-d, -d / 3, -d / 2, -d, 0, -d / 2);
-        
-        ctx.fillStyle = this.color + this.opacity + ')';
-        ctx.fill();
+        const cacheItem = heartCache[this.cacheIndex];
+        ctx.drawImage(
+            cacheItem.canvas, 
+            -cacheItem.canvas.width / 2, 
+            -cacheItem.canvas.height / 2
+        );
         ctx.restore();
     }
 
