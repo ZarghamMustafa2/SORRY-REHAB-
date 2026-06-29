@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A special, interactive apology website dedicated to Rehab Zahra.">
+    <title>Sorry, Rehab Zahra 💖</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@200..800&family=Sacramento&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- Background Canvas for Floating Particles -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://www.chosic.com/wp-content/uploads/2020/07/Kevin_MacLeod_-_Canon_in_D_Major.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Music Control Floating Button -->
+    <button id="music-toggle" class="floating-btn" aria-label="Toggle Music">
+        <div class="music-icon-wrapper">
+            <svg class="music-icon" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+            <div class="mute-line"></div>
+        </div>
+        <div class="sound-wave">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </button>
+
+    <!-- Main Web Container -->
+    <main class="app-container">
+
+        <!-- SECTION 1: HERO LANDING -->
+        <section id="hero" class="section">
+            <div class="hero-content">
+                <div class="glowing-orb"></div>
+                <span class="pre-title">With all my heart...</span>
+                <h1 class="main-title">Sorry <span class="highlight">Rehab Zahra</span></h1>
+                <p class="subtitle">Please accept my deepest apology. Scroll down to see what's in my heart.</p>
+                <div class="scroll-indicator">
+                    <svg class="arrow-down" viewBox="0 0 24 24" width="30" height="30">
+                        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE HEARTFELT LETTER -->
+        <section id="letter-section" class="section fade-in">
+            <div class="section-header">
+                <h2>A Letter For You</h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="envelope-container">
+                <div class="envelope" id="envelope">
+                    <div class="flap"></div>
+                    <div class="pocket"></div>
+                    <div class="letter" id="letter">
+                        <div class="letter-content">
+                            <span class="letter-date">June 29, 2026</span>
+                            <h3>Dear Rehab,</h3>
+                            <p>I know I made a mistake, and I am genuinely sorry for causing any hurt or disappointment. You are incredibly special to me, and seeing you upset is the last thing I ever want.</p>
+                            <p>This little page is a small way for me to say that I value you, and I promise to be more understanding, careful, and caring in the future.</p>
+                            <p>Please forgive me and let us start fresh. I hope this brings a small smile to your face. 💖</p>
+                            <span class="letter-signature">Yours truly,</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="envelope-instruction">Click the envelope to open your letter 💌</div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: WHY I'M SORRY DECK -->
+        <section id="reasons-section" class="section fade-in">
+            <div class="section-header">
+                <h2>A Few Promises & Thoughts</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="card-deck-container">
+                <div class="deck-controls prev-btn" id="prev-card">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </div>
+                
+                <div class="cards-wrapper">
+                    <div class="promise-card active" data-index="0">
+                        <div class="card-glow"></div>
+                        <div class="card-num">01</div>
+                        <h3>I Promise to Listen</h3>
+                        <p>I will pay closer attention to your feelings, your thoughts, and your silence. Your peace of mind matters more than anything else.</p>
+                    </div>
+                    
+                    <div class="promise-card" data-index="1">
+                        <div class="card-glow"></div>
+                        <div class="card-num">02</div>
+                        <h3>Always There For You</h3>
+                        <p>No matter what happens, no matter how busy life gets, you will always be a top priority. I am just a call or message away.</p>
+                    </div>
+
+                    <div class="promise-card" data-index="2">
+                        <div class="card-glow"></div>
+                        <div class="card-num">03</div>
+                        <h3>Patience & Kindness</h3>
+                        <p>I will always treat you with the softness, patience, and kindness that you truly deserve. No more misunderstandings.</p>
+                    </div>
+
+                    <div class="promise-card" data-index="3">
+                        <div class="card-glow"></div>
+                        <div class="card-num">04</div>
+                        <h3>Never Want to Lose You</h3>
+                        <p>You bring so much light and joy into my life. Losing you is something I can never imagine. That's why I'm standing here, asking for forgiveness.</p>
+                    </div>
+                </div>
+
+                <div class="deck-controls next-btn" id="next-card">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="dots-indicators" id="dots-container">
+                <!-- Dots will be populated by JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 4: THE FORGIVENESS TEST -->
+        <section id="forgive-section" class="section fade-in">
+            <div class="glass-decision-box">
+                <div class="decision-content">
+                    <div class="heart-icon-wrapper">
+                        <svg class="pulsing-heart" viewBox="0 0 24 24" width="60" height="60">
+                            <path fill="#ff4d6d" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </div>
+                    <h2>The Big Question</h2>
+                    <p class="question-text">Rehab Zahra, will you please forgive me?</p>
+                    
+                    <div class="buttons-group">
+                        <button id="yes-btn" class="decision-btn yes-btn-style">Yes, I forgive you! 💖</button>
+                        <button id="no-btn" class="decision-btn no-btn-style">No 😤</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- SUCCESS MODAL POPUP -->
+    <div id="success-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-heart">
+                <svg viewBox="0 0 24 24" width="80" height="80">
+                    <path fill="#ff4d6d" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+            <h2>Yay! Thank You Rehab! 😍</h2>
+            <p>You have made me the happiest person! I promise to make things right and cherish your forgiveness. Let's talk! 💖✨</p>
+            <button id="close-modal" class="close-btn">Close with a Smile</button>
+        </div>
+    </div>
+
+    <!-- Main JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
